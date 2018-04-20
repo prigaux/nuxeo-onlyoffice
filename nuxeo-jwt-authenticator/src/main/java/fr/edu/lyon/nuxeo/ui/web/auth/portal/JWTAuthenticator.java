@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nuxeo.ecm.core.api.NuxeoException;
+import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.platform.api.login.UserIdentificationInfo;
 import org.nuxeo.ecm.platform.ui.web.auth.interfaces.NuxeoAuthenticationPlugin;
 import org.nuxeo.runtime.api.Framework;
@@ -60,7 +60,7 @@ public class JWTAuthenticator implements NuxeoAuthenticationPlugin
 		return authorizationString.substring(prefix.length()).trim();
 	}
 
-
+	
 
 	public UserIdentificationInfo handleRetrieveIdentity(HttpServletRequest httpRequest, HttpServletResponse httpResponse)
 	{
@@ -74,7 +74,7 @@ public class JWTAuthenticator implements NuxeoAuthenticationPlugin
 		try
 		{
 			Map<String, Object> payload = getPayloadPluginService().getPayload(token, algorithmId);
-
+					
 			String userId=null;
 			PayloadResolver payloadResolver=getPayloadPluginService().getPayloadResolver(payload);
 			if (payloadResolver==null)
@@ -84,7 +84,7 @@ public class JWTAuthenticator implements NuxeoAuthenticationPlugin
 				{
 					payload=getPayloadPluginService().getPayload(aiToken, algorithmId);
 					payloadResolver=getPayloadPluginService().getPayloadResolver(payload);
-
+					
 					if (payloadResolver!=null)
 					{
 						userId=payloadResolver.getUserId(payload);
@@ -97,7 +97,7 @@ public class JWTAuthenticator implements NuxeoAuthenticationPlugin
 			{
 				userId=payloadResolver.getUserId(payload);
 			}
-
+			
 			if (userId==null)
 			{
 				return null;
@@ -120,7 +120,7 @@ public class JWTAuthenticator implements NuxeoAuthenticationPlugin
 			algorithmId = parameters.get(ALGORITHM_KEY_NAME);
 		}else
 		{
-			throw new NuxeoException("un id d'algorithm JWT est requis");
+			throw new ClientException("un id d'algorithm JWT est requis");
 		}
 		if (parameters.containsKey(PREFIX_KEY_NAME))
 		{

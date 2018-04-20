@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>nuxeo-onlyoffice-plugin</artifactId>
 		<groupId>fr.edu.lyon.nuxeo.onlyoffice</groupId>
-		<version>4.1-SNAPSHOT</version>
+		<version>3.8.3-SNAPSHOT</version>
 	</parent>
 	<artifactId>nuxeo-onlyoffice-api</artifactId>
 	<name>Bibliothèque onlyoffice</name>

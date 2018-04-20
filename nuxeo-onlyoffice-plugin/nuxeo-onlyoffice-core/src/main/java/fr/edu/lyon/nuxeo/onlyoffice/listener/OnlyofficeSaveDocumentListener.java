@@ -9,9 +9,9 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.ecm.core.api.Blob;
+import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
-import org.nuxeo.ecm.core.api.NuxeoException;
 import org.nuxeo.ecm.core.api.VersioningOption;
 import org.nuxeo.ecm.core.api.blobholder.BlobHolder;
 import org.nuxeo.ecm.core.api.impl.blob.ByteArrayBlob;
@@ -49,7 +49,7 @@ public class OnlyofficeSaveDocumentListener implements EventListener
 			return new ByteArrayBlob(bytes);
 		} catch (IOException e)
 		{
-			throw new NuxeoException(e);
+			throw new ClientException(e);
 		} finally
 		{
 			if (stream!=null)
@@ -104,14 +104,19 @@ public class OnlyofficeSaveDocumentListener implements EventListener
 					blob.setMimeType(FileUtility.getOnlyofficeMimeType(originalFilename));
 
 					bh.setBlob(blob);
-					
-					
-					if (session.isCheckedOut(doc.getRef()))
+
+					if (!originalExt.equalsIgnoreCase(onlyofficeExt) || session.isCheckedOut(doc.getRef()))
 					{
 						session.checkIn(doc.getRef(), VersioningOption.NONE, "historisation avant modification onlyoffice");
 					}
 
-					doc.putContextData(VersioningService.VERSIONING_OPTION, VersioningOption.MINOR);
+					if (!originalExt.equalsIgnoreCase(onlyofficeExt))
+					{
+						doc.putContextData(VersioningService.VERSIONING_OPTION, VersioningOption.MINOR);
+					}else
+					{
+						doc.putContextData(VersioningService.VERSIONING_OPTION, VersioningOption.MINOR);
+					}
 
 					session.saveDocument(doc);
 				} catch (Exception e)

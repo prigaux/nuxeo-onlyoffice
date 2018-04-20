@@ -9,9 +9,9 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.ecm.core.api.Blob;
+import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
-import org.nuxeo.ecm.core.api.NuxeoException;
 import org.nuxeo.ecm.core.api.blobholder.BlobHolder;
 import org.nuxeo.ecm.core.api.impl.blob.ByteArrayBlob;
 import org.nuxeo.ecm.core.event.Event;
@@ -46,7 +46,7 @@ public class OnlyofficeCreateDocumentListener implements EventListener
 			return new ByteArrayBlob(bytes);
 		} catch (IOException e)
 		{
-			throw new NuxeoException(e);
+			throw new ClientException(e);
 		} finally
 		{
 			if (stream!=null)

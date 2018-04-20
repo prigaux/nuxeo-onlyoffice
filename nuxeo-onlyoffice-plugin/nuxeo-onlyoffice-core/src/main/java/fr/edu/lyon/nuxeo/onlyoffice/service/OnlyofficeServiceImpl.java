@@ -8,12 +8,12 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.ecm.core.api.Blob;
-import org.nuxeo.ecm.core.api.Blobs;
+import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.IdRef;
-import org.nuxeo.ecm.core.api.NuxeoException;
 import org.nuxeo.ecm.core.api.blobholder.BlobHolder;
+import org.nuxeo.ecm.core.api.impl.blob.InputStreamBlob;
 import org.nuxeo.ecm.core.event.EventProducer;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 import org.nuxeo.runtime.api.Framework;
@@ -45,14 +45,14 @@ public class OnlyofficeServiceImpl extends DefaultComponent implements Onlyoffic
 	}
 
 	@Override
-	public void deactivate(ComponentContext context)
+	public void deactivate(ComponentContext context) throws Exception
 	{
 		config = null;
 		super.deactivate(context);
 	}
 
 	@Override
-	public void registerContribution(Object contribution, String extensionPoint, ComponentInstance contributor)
+	public void registerContribution(Object contribution, String extensionPoint, ComponentInstance contributor) throws Exception
 	{
 
 		if (extensionPoint.equals(CONFIG_EP))
@@ -74,7 +74,7 @@ public class OnlyofficeServiceImpl extends DefaultComponent implements Onlyoffic
 	{
 		if (config == null)
 		{
-			throw new NuxeoException("Aucune configuration onlyoffice définie");
+			throw new ClientException("Aucune configuration onlyoffice définie");
 		}
 		return config;
 	}
@@ -92,7 +92,7 @@ public class OnlyofficeServiceImpl extends DefaultComponent implements Onlyoffic
 	public byte[] getBlobFromTemplate(CoreSession session, String filetype) throws IOException
 	{
 		String template = "/templates/empty." + filetype;
-		Blob blob = Blobs.createBlob(getClass().getResourceAsStream(template));
+		Blob blob = new InputStreamBlob(getClass().getResourceAsStream(template));
 
 		return blob.getByteArray();
 	}

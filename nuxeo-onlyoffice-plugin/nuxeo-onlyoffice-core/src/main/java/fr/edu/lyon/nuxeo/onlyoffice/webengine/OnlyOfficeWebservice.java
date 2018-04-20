@@ -23,6 +23,7 @@ import org.nuxeo.runtime.api.Framework;
 
 import fr.edu.lyon.nuxeo.onlyoffice.service.OnlyofficeConfig;
 import fr.edu.lyon.nuxeo.onlyoffice.service.OnlyofficeService;
+import fr.edu.lyon.nuxeo.securid.services.SecurIDDetectionService;
 import fr.edu.lyon.nuxeo.securid.services.SecurIDUrlService;
 import fr.edu.lyon.nuxeo.ui.web.rest.services.SecuridSecurityException;
 import fr.edu.lyon.onlyoffice.api.FileUtility;
@@ -36,7 +37,18 @@ public class OnlyOfficeWebservice extends ModuleRoot
 	protected final Log			log	= LogFactory.getLog(OnlyOfficeWebservice.class);
 
 	private OnlyofficeService	onlyofficeService;
+	private SecurIDDetectionService 	securIDDetectionService;
 	private SecurIDUrlService securIDUrlService;
+
+	private SecurIDDetectionService getSecurIDDetectionService()
+	{
+		if (securIDDetectionService == null)
+		{
+			securIDDetectionService = Framework.getService(SecurIDDetectionService.class);
+		}
+
+		return securIDDetectionService;
+	}
 
 	private SecurIDUrlService getSecurIDUrlService()
 	{
@@ -70,7 +82,7 @@ public class OnlyOfficeWebservice extends ModuleRoot
 
 	private void checkSecurid(DocumentModel document)
 	{
-		SecurIDUrlService service=getSecurIDUrlService();
+		SecurIDDetectionService service=getSecurIDDetectionService();
 
 		if (service.needSecuridLogon(request, document.getPathAsString()))
 		{

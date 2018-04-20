@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>nuxeo-onlyoffice-plugin</artifactId>
 		<groupId>fr.edu.lyon.nuxeo.onlyoffice</groupId>
-		<version>4.1-SNAPSHOT</version>
+		<version>3.8.3-SNAPSHOT</version>
 	</parent>
 	<artifactId>nuxeo-onlyoffice-core</artifactId>
 	<name>Intégration onlyoffice</name>
@@ -51,8 +51,8 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>fr.edu.lyon.nuxeo.cleartrust</groupId>
-			<artifactId>cleartrust-core</artifactId>
+			<groupId>fr.edu.lyon.nuxeo</groupId>
+			<artifactId>nuxeo-cleartrust-plugin</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>

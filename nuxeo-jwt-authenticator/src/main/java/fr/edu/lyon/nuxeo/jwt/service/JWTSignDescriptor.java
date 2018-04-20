@@ -13,7 +13,7 @@ import java.util.Map;
 import org.apache.commons.codec.binary.Base64;
 import org.nuxeo.common.xmap.annotation.XNode;
 import org.nuxeo.common.xmap.annotation.XObject;
-import org.nuxeo.ecm.core.api.NuxeoException;
+import org.nuxeo.ecm.core.api.ClientException;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -74,11 +74,11 @@ public class JWTSignDescriptor
 					algorithm = Algorithm.HMAC512(key);
 					break;
 				default:
-					throw new NuxeoException("aucun algorithme correspondant à " + name);
+					throw new ClientException("aucun algorithme correspondant à " + name);
 				}
 			} catch (IllegalArgumentException | UnsupportedEncodingException e)
 			{
-				throw new NuxeoException(e);
+				throw new ClientException(e);
 			}
 		}
 
@@ -100,23 +100,23 @@ public class JWTSignDescriptor
 		DecodedJWT jwt=getJWTVerifier().verify(token);
 		Map<String, Claim> claims=jwt.getClaims();
 		Map<String, Object> payload=new HashMap<>();
-
+		
 		for(Map.Entry<String, Claim> entry:claims.entrySet())
 		{
 			Claim claim=entry.getValue();
-			String clkey=entry.getKey();
+			String key=entry.getKey();
 			if (!claim.isNull() && claim.asMap()!=null)
 			{
-				payload.put(clkey, claim.asMap());
+				payload.put(key, claim.asMap());
 			}else if (!claim.isNull())
 			{
-				payload.put(clkey, claim.as(Object.class));
+				payload.put(key, claim.as(Object.class));
 			}
 		}
-
+		
 		return payload;
 	}
-
+	
 	public String getSignedToken(String payloadObject)
 	{
 		Algorithm algo = getAlgorithm();
@@ -136,7 +136,7 @@ public class JWTSignDescriptor
 
 		return String.format("%s.%s", content, signature);
 	}
-
+	
 	public String getSessionToken(Principal principal)
 	{
 		Calendar cal = GregorianCalendar.getInstance();

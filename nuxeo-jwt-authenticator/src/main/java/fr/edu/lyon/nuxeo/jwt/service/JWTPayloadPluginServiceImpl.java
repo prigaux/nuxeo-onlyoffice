@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nuxeo.ecm.core.api.NuxeoException;
+import org.nuxeo.ecm.core.api.ClientException;
 import org.nuxeo.runtime.model.ComponentContext;
 import org.nuxeo.runtime.model.ComponentInstance;
 import org.nuxeo.runtime.model.DefaultComponent;
@@ -21,16 +21,14 @@ public class JWTPayloadPluginServiceImpl extends DefaultComponent implements JWT
 	protected JWTSignRegistry jwtSignRegistry;
 
 	@Override
-	public void activate(ComponentContext context)
-	{
+	public void activate(ComponentContext context) throws Exception {
 		super.activate(context);
 		pluginRegistry = new PayloadPluginRegistry();
 		jwtSignRegistry=new JWTSignRegistry();
 	}
 
 	@Override
-	public void deactivate(ComponentContext context)
-	{
+	public void deactivate(ComponentContext context) throws Exception {
 		pluginRegistry = null;
 		jwtSignRegistry=null;
 		super.deactivate(context);
@@ -39,7 +37,7 @@ public class JWTPayloadPluginServiceImpl extends DefaultComponent implements JWT
 	@Override
 	public void registerContribution(Object contribution,
 			String extensionPoint, ComponentInstance contributor)
-	{
+			throws Exception {
 
 		if (extensionPoint.equals(PLUGIN_EP)) {
 			PayloadPluginDescriptor desc = (PayloadPluginDescriptor) contribution;
@@ -57,7 +55,7 @@ public class JWTPayloadPluginServiceImpl extends DefaultComponent implements JWT
 	@Override
 	public void unregisterContribution(Object contribution,
 			String extensionPoint, ComponentInstance contributor)
-	{
+			throws Exception {
 		if (extensionPoint.equals(PLUGIN_EP)) {
 			PayloadPluginDescriptor desc = (PayloadPluginDescriptor) contribution;
 			pluginRegistry.removeContribution(desc);
@@ -86,11 +84,11 @@ public class JWTPayloadPluginServiceImpl extends DefaultComponent implements JWT
 				return pluginDescriptor.getPayloadResolver().newInstance();
 			} catch (InstantiationException | IllegalAccessException e)
 			{
-				throw new NuxeoException(e);
+				throw new ClientException(e);
 			}
 		}
 	}
-
+	
 	private JWTSignDescriptor getDescriptor(String algorithmId)
 	{
 		JWTSignDescriptor descriptor=jwtSignRegistry.getJwtSignDescriptor(algorithmId);
@@ -98,31 +96,31 @@ public class JWTPayloadPluginServiceImpl extends DefaultComponent implements JWT
 		{
 			log.error("Impossible de trouver l'algorithme JWT associé à l'id " + algorithmId);
 		}
-
+		
 		return descriptor;
 	}
-
+	
 	@Override
 	public Map<String, Object> getPayload(String token, String algorithmId)
 	{
 		JWTSignDescriptor descriptor=getDescriptor(algorithmId);
-
+		
 		return descriptor==null ? null:descriptor.getPayloadFromToken(token);
 	}
-
+	
 	@Override
 	public String getSignedToken(String payloadObject, String algorithmId)
 	{
 		JWTSignDescriptor descriptor=getDescriptor(algorithmId);
-
+		
 		return descriptor==null ? null:descriptor.getSignedToken(payloadObject);
 	}
-
+	
 	@Override
 	public String getSessionToken(Principal principal, String algorithmId)
 	{
 		JWTSignDescriptor descriptor=getDescriptor(algorithmId);
-
+		
 		return descriptor==null ? null:descriptor.getSessionToken(principal);
 	}
 }

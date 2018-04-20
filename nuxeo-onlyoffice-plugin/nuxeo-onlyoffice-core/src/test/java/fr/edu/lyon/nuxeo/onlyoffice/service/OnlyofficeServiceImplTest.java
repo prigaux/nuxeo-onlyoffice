@@ -4,17 +4,15 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import java.io.IOException;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.nuxeo.ecm.core.api.Blob;
-import org.nuxeo.ecm.core.api.Blobs;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.PathRef;
 import org.nuxeo.ecm.core.api.blobholder.BlobHolder;
+import org.nuxeo.ecm.core.api.impl.blob.InputStreamBlob;
 import org.nuxeo.ecm.core.test.CoreFeature;
 import org.nuxeo.runtime.test.runner.Deploy;
 import org.nuxeo.runtime.test.runner.Features;
@@ -38,18 +36,18 @@ public class OnlyofficeServiceImplTest
 
 	public static String eventFired;
 
-	private Blob getFileBlob() throws IOException
+	private Blob getFileBlob()
 	{
-		return Blobs.createBlob(getClass().getResourceAsStream("/file.txt"));
+		return new InputStreamBlob(getClass().getResourceAsStream("/file.txt"));
 	}
 
-	private Blob getTemplateBlob() throws IOException
+	private Blob getTemplateBlob()
 	{
-		return Blobs.createBlob(getClass().getResourceAsStream("/templates/empty.txt"));
+		return new InputStreamBlob(getClass().getResourceAsStream("/templates/empty.txt"));
 	}
 
 	@Before
-	public void init() throws IOException
+	public void init()
 	{
 		DocumentModel file = session.createDocumentModel("/", "doc", "File");
 		BlobHolder bh = file.getAdapter(BlobHolder.class);
