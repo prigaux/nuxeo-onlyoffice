@@ -1,0 +1,30 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>nuxeo-onlyoffice-plugin</artifactId>
+		<groupId>fr.edu.lyon.nuxeo.onlyoffice</groupId>
+		<version>4.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>nuxeo-onlyoffice-api</artifactId>
+	<name>Bibliothèque onlyoffice</name>
+
+
+
+	<dependencies>
+
+
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.nuxeo.ecm.platform</groupId>
+			<artifactId>nuxeo-platform-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<description>API de caractéristiques OnlyOffice</description>
+</project>

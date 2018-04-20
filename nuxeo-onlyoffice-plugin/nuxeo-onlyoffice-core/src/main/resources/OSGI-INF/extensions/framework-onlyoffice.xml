@@ -1,0 +1,25 @@
+<component name="fr.edu.lyon.onlyoffice.ConfigService">
+	<implementation class="fr.edu.lyon.nuxeo.onlyoffice.service.OnlyofficeServiceImpl" />
+
+	<service>
+		<provide interface="fr.edu.lyon.nuxeo.onlyoffice.service.OnlyofficeService" />
+	</service>
+
+	<extension-point name="config">
+		<documentation>
+			<p>Point d'extension permettant de configurer les échanges avec onlyoffice</p>
+
+
+
+			<code>
+				<onlyoffice gobackClass="fr.edu.lyon.onlyoffice.GoBackDefaultResolver">
+					<url>http://documentServer/</url>
+					<algorithm>onlyoffice</algorithm>
+					<prefix>pref</prefix>
+				</onlyoffice>
+			</code>
+		</documentation>
+
+		<object class="fr.edu.lyon.nuxeo.onlyoffice.service.OnlyofficeConfig" />
+	</extension-point>
+</component>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="fr.edu.lyon.jwt.service.PayloadPluginService">
+
+	<implementation
+		class="fr.edu.lyon.nuxeo.jwt.service.JWTPayloadPluginServiceImpl" />
+
+	<service>
+		<provide
+			interface="fr.edu.lyon.nuxeo.jwt.service.JWTPayloadPluginService" />
+	</service>
+
+	<documentation>
+		Ce service a pour objectif d'associer un PayloadResolver
+		avec une liste de claims dont la présence est à vérifier
+	</documentation>
+
+	<extension-point name="plugin">
+		<documentation>
+			<p>Point d'extension permettant de définir le PayloadResolver en
+				fonction des claims présents</p>
+
+			<code>
+				<payload id="onlyoffice" enabled="true"
+					class="fr.edu.lyon.nuxeo.OnlyofficePayloadResolver">
+					<claim>payload.actions.userid</claim>
+					<claim>payload.key</claim>
+				</payload>
+			</code>
+
+			<p>Dans la configuration ci-avant, on définit le PayLoadResolver
+				"OnlyofficePayloadResolver" qui
+				sera actif si dans le payload JWT les deux objets payload.actions.userid
+				et payload.key sont trouvés
+			</p>
+
+			<p>N.B : actions peut être un tableau d'objets, il y aura
+				correspondance si un des objets du tableau
+				contient la clé userid
+			</p>
+		</documentation>
+
+		<object class="fr.edu.lyon.nuxeo.jwt.service.PayloadPluginDescriptor" />
+	</extension-point>
+	<extension-point name="jwt-sign">
+		<documentation>
+			<p>Point d'extension permettant de déclarer un algorithme d'encodage
+				JWT avec sa clé associée</p>
+			<p>id est l'identifiant permettant de l'utiliser dans nuxeo, name est
+				l'identifiant de l'algorithme de cryptage,
+				key permet de définir, la clé de cryptage
+			</p>
+
+			<code>
+				<algorithm id="onlyoffice" name="HS256" key="secretkey" />
+			</code>
+		</documentation>
+
+		<object class="fr.edu.lyon.nuxeo.jwt.service.JWTSignDescriptor" />
+	</extension-point>
+
+</component>

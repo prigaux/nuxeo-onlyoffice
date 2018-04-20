@@ -1,0 +1,11 @@
+<component name="org.nuxeo.ecm.core.event.custom.EventServiceComponent"
+	version="1.0">
+
+	<require>org.nuxeo.ecm.core.event.EventServiceComponent</require>
+
+	<implementation class="fr.edu.lyon.nuxeo.onlyoffice.test.MockEventProducer" />
+
+	<service>
+		<provide interface="org.nuxeo.ecm.core.event.EventProducer" />
+	</service>
+</component>

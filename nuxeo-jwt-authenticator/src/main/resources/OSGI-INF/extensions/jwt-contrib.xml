@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="fr.edu.lyon.nuxeo.jwt.contrib">
+
+	<extension target="fr.edu.lyon.jwt.service.PayloadPluginService"
+		point="plugin">
+
+		<payload id="sessionToken" enabled="true"
+			class="fr.edu.lyon.nuxeo.jwt.service.SessionTokenPayloadResolver">
+			<claim>userId</claim>
+		</payload>
+	</extension>
+</component>

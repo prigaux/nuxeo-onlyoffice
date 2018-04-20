@@ -1,0 +1,474 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>fr.edu.lyon.nuxeo</groupId>
+	<artifactId>nuxeo-bundle</artifactId>
+	<name>Projet Nuxeo Rectorat de Lyon</name>
+
+	<url>http://maven.in.ac-lyon.fr/nuxeo</url>
+
+	<organization>
+		<name>Rectorat de Lyon</name>
+		<url>http://www.ac-lyon.fr</url>
+	</organization>
+
+	<issueManagement>
+	</issueManagement>
+
+	<developers>
+
+	</developers>
+
+	<scm>
+	</scm>
+
+	<repositories>
+		<repository>
+			<id>nuxeo-public</id>
+			<url>http://maven.nuxeo.com/nexus/content/groups/public</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>nuxeo-hotfix</id>
+			<url>http://mavenin.nuxeo.com/nexus/content/repositories/hotfix-releases</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>toutatice-public</id>
+			<url>http://projet.toutatice.fr/nexus/content/repositories/toutatice-releases</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>public</id>
+			<url>http://maven.nuxeo.org/nexus/content/groups/public</url>
+			<name>Nuxeo virtual release repository</name>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<properties>
+		<noDeploy>false</noDeploy>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<nuxeo.platform.version>8.10-HF22</nuxeo.platform.version>
+		<nuxeo.marketplace.version>8.10</nuxeo.marketplace.version>
+		<nuxeo.login.portal.sso.version>5.5</nuxeo.login.portal.sso.version>
+		<nuxeo.platform.distribution>8.10</nuxeo.platform.distribution>
+		<open.toutatice.version>5.0-SNAPSHOT</open.toutatice.version>
+		<targetJdk>1.7</targetJdk>
+		<nuxeo.hotfix>nuxeo-8.10-HF19:1.0.0</nuxeo.hotfix>
+		<osivia.collab.tools.version>5.0-SNAPSHOT</osivia.collab.tools.version>
+		<argLine>-Dfile.encoding=UTF-8</argLine>
+		<opentoutatice.query.es.version>1.3</opentoutatice.query.es.version>
+	</properties>
+
+	<packaging>pom</packaging>
+	<description>Adaptation ECM nuxeo aux besoins du Rectorat de Lyon</description>
+
+	<modules>
+		<module>nuxeo-jwt-authenticator</module>
+		<module>nuxeo-onlyoffice-plugin</module>
+		<!-- <module>nuxeo-distribution</module> -->
+	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.nuxeo</groupId>
+				<artifactId>nuxeo-ecm</artifactId>
+				<version>${nuxeo.platform.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>2.5</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>2.1.2</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>2.5.1</version>
+				</plugin>
+				<plugin>
+					<groupId>com.google.code.maven-config-processor-plugin</groupId>
+					<artifactId>maven-config-processor-plugin</artifactId>
+					<version>2.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>2.3</version>
+					<executions>
+						<execution>
+							<id>make-assembly</id>
+							<phase>package</phase>
+							<goals>
+								<goal>single</goal>
+							</goals>
+							<configuration>
+								<descriptors>
+									<descriptor>src/assemble/assembly.xml</descriptor>
+								</descriptors>
+								<ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId> org.codehaus.mojo</groupId>
+					<artifactId>properties-maven-plugin</artifactId>
+					<version>1.0-alpha-2</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-project-info-reports-plugin</artifactId>
+					<version>2.4</version>
+					<configuration>
+						<dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>3.0.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>2.3</version>
+					<configuration>
+						<archive>
+							<manifestFile>
+								src/main/resources/META-INF/MANIFEST.MF
+							</manifestFile>
+							<manifestEntries>
+								<Bundle-Version>
+									${project.version}-t${buildNumber}
+								</Bundle-Version>
+								<Bundle-ManifestVersion>2</Bundle-ManifestVersion>
+							</manifestEntries>
+						</archive>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>2.2.1</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>2.7</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.apache.maven.wagon</groupId>
+							<artifactId>wagon-ssh</artifactId>
+							<version>2.10</version>
+						</dependency>
+					</dependencies>
+				</plugin>
+				<plugin>
+					<artifactId>maven-site-plugin</artifactId>
+					<version>3.3</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.apache.maven.wagon</groupId>
+							<artifactId>wagon-ssh</artifactId>
+							<version>2.10</version>
+						</dependency>
+					</dependencies>
+					<configuration>
+						<locales>fr</locales>
+						<sourceEncoding>UTF-8</sourceEncoding>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.nuxeo.build</groupId>
+					<artifactId>ant-assembly-maven-plugin</artifactId>
+					<version>2.1.0</version>
+					<executions>
+						<execution>
+							<id>packaging</id>
+							<goals>
+								<goal>build</goal>
+							</goals>
+							<phase>package</phase>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-site-plugin</artifactId>
+				<configuration>
+					<locales>fr</locales>
+					<sourceEncoding>UTF-8</sourceEncoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>external.atlassian.jgitflow</groupId>
+				<artifactId>jgitflow-maven-plugin</artifactId>
+				<version>1.0-m5.1</version>
+				<configuration>
+					<allowSnapshots>true</allowSnapshots>
+					<enableSshAgent>true</enableSshAgent>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<pushFeatures>true</pushFeatures>
+					<pushReleases>true</pushReleases>
+					<pushHotfixes>true</pushHotfixes>
+					<noDeploy>${noDeploy}</noDeploy>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+				<version>1.4</version>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>create</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<format>{0,date,yyyyMMdd-HHmmss}</format>
+					<items>
+						<item>timestamp</item>
+					</items>
+					<doCheck>false</doCheck>
+					<doUpdate>false</doUpdate>
+				</configuration>
+			</plugin>
+			<plugin>
+          		<groupId>org.apache.maven.plugins</groupId>
+          		<artifactId>maven-surefire-plugin</artifactId>
+          		<version>2.18</version>
+		    </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.3</version>
+				<executions>
+					<execution>
+						<id>aggregate</id>
+						<goals>
+							<goal>aggregate</goal>
+						</goals>
+						<phase>site</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<maxmemory>512m</maxmemory>
+
+					<windowtitle>Ideal-nuxeo-bundle ${project.version} API Documentation</windowtitle>
+					<doctitle>Ideal-nuxeo-bundle ${project.version} API Documentation</doctitle>
+					<header>Ideal-nuxeo-bundle plugin ${project.version}</header>
+					<groups>
+						<group>
+							<title>Spécificité nuxeo du Rectorat de Lyon</title>
+							<packages>fr.edu.lyon.nuxeo.*</packages>
+						</group>
+					</groups>
+					<additionalparam>${javadoc.opts}</additionalparam>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<aggregate>true</aggregate>
+				</configuration>
+			</plugin>
+		</plugins>
+
+	</build>
+
+	<distributionManagement>
+		<site>
+			<id>maven-website</id>
+			<url>scp://maven.in.ac-lyon.fr/var/www/html/maven/nuxeo-8.10</url>
+		</site>
+		<repository>
+			<id>maven-releases</id>
+			<url>scp://maven.in.ac-lyon.fr/maven/sonatype-work/nexus/storage/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>maven-snapshots</id>
+			<url>scp://maven.in.ac-lyon.fr/maven/sonatype-work/nexus/storage/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+				<version>1.2</version>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>2.4</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>project-team</report>
+							<report>issue-tracking</report>
+							<report>scm</report>
+							<report>index</report>
+							<report>summary</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+		</plugins>
+	</reporting>
+
+	<profiles>
+		<profile>
+			<id>local-release-profile</id>
+
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>2.10.3</version>
+						<executions>
+							<execution>
+								<id>aggregate</id>
+								<goals>
+									<goal>aggregate</goal>
+								</goals>
+								<phase>site</phase>
+							</execution>
+						</executions>
+						<configuration>
+							<maxmemory>512m</maxmemory>
+
+							<windowtitle>Ideal-nuxeo-bundle ${project.version} API Documentation</windowtitle>
+							<doctitle>Ideal-nuxeo-bundle ${project.version} API Documentation</doctitle>
+							<header>Ideal-nuxeo-bundle plugin ${project.version}</header>
+							<groups>
+								<group>
+									<title>Spécificité nuxeo du Rectorat de Lyon</title>
+									<packages>fr.edu.lyon.nuxeo.*</packages>
+								</group>
+							</groups>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-jxr-plugin</artifactId>
+						<version>2.3</version>
+						<configuration>
+							<aggregate>true</aggregate>
+						</configuration>
+					</plugin>
+
+				</plugins>
+			</build>
+		</profile>
+
+        <profile>
+            <id>deploy-local-modules</id>
+            <activation>
+            	<property>
+            		<name>build.nuxeo.modules.dir</name>
+            	</property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>copy-jar</id>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <tasks>
+                                        <copy file="${basedir}/target/${project.build.finalName}.jar" todir="${build.nuxeo.modules.dir}" failonerror="false" />
+                                    </tasks>
+                                </configuration>
+                                <phase>package</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+    		<id>java8-doclint-disabled</id>
+    		<activation>
+      			<jdk>[1.8,)</jdk>
+    		</activation>
+    		<properties>
+      			<javadoc.opts>-Xdoclint:none</javadoc.opts>
+    		</properties>
+  		</profile>
+	</profiles>
+
+	<version>4.1-SNAPSHOT</version>
+</project>

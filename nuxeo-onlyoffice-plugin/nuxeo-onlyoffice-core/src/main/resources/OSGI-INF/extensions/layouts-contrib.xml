@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<component name="fr.edu.lyon.nuxeo.onlyoffice.layouts.contrib">
+
+
+	<extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
+		point="widgets">
+
+		<widget name="onlyofficeCreateButtons" type="documentActions">
+			<properties mode="view">
+				<property name="actionsDisplay">buttons</property>
+				<property name="category">CREATE_DOCUMENT_FORM_ONLYOFFICE</property>
+				<property name="overallDisplay">horizontal_block</property>
+				<property name="actionStyleClass">button</property>
+			</properties>
+		</widget>
+	</extension>
+
+	<extension target="org.nuxeo.ecm.platform.forms.layout.WebLayoutManager"
+		point="layouts">
+
+		<layout name="heading_onlyoffice">
+			<templates>
+				<template mode="any">/layouts/layout_default_template.xhtml
+				</template>
+			</templates>
+			<rows>
+				<row>
+					<widget>title</widget>
+				</row>
+			</rows>
+		</layout>
+
+	</extension>
+</component>

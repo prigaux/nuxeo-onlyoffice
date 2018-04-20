@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<component name="fr.edu.lyon.nuxeo.onlyoffice.operations.contrib" version="1.0">
+
+  <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent"
+    point="operations">
+
+    	<operation class="fr.edu.lyon.nuxeo.onlyoffice.operation.CanUseOnlyOfficeOperation" />
+
+  </extension>
+
+</component>

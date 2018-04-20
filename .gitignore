@@ -1,0 +1,6 @@
+**/target
+**/.project
+**/.classpath
+**/.settings
+/nuxeo-pia-core/nuxeo-diffusion-plugin/src/main/resources/data/IdealStopDiffusionWorkflow.zip
+/nuxeo-pia-core/nuxeo-diffusion-plugin/src/main/resources/data/IdealDiffusionWorkflow.zip

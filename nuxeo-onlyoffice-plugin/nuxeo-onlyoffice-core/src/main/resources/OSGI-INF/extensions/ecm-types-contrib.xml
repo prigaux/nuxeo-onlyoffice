@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component name="fr.edu.lyon.nuxeo.onlyoffice.ecm.types.contrib" version="1.0.0">
+	<require>org.nuxeo.ecm.platform.types</require>
+
+	<extension target="org.nuxeo.ecm.platform.types.TypeService"
+		point="types">
+
+		<type id="Workspace">
+			<subtypes>
+				<type>DOCX</type>
+				<type>XLSX</type>
+				<type>PPTX</type>
+			</subtypes>
+		</type>
+
+		<type id="Folder">
+			<subtypes>
+				<type>DOCX</type>
+				<type>XLSX</type>
+				<type>PPTX</type>
+			</subtypes>
+		</type>
+
+		<type id="DOCX">
+			<label>DOCX</label>
+			<category>Office</category>
+
+			<icon>/icons/docx.png</icon>
+			<bigIcon>/icons/docx-file.png</bigIcon>
+			<description>DOCX.description</description>
+
+			<create-view>create_onlyoffice</create-view>
+
+			<layouts mode="create">
+				<layout>heading_onlyoffice</layout>
+			</layouts>
+		</type>
+
+		<type id="XLSX">
+			<label>XLSX</label>
+			<category>Office</category>
+
+			<icon>/icons/xlsx.png</icon>
+			<bigIcon>/icons/xlsx-file.png</bigIcon>
+			<description>XLSX.description</description>
+
+			<create-view>create_onlyoffice</create-view>
+
+			<layouts mode="create">
+				<layout>heading_onlyoffice</layout>
+			</layouts>
+		</type>
+
+		<type id="PPTX">
+			<label>PPTX</label>
+			<category>Office</category>
+
+			<icon>/icons/pptx.png</icon>
+			<bigIcon>/icons/pptx-file.png</bigIcon>
+			<description>PPTX.description</description>
+
+			<create-view>create_onlyoffice</create-view>
+
+			<layouts mode="create">
+				<layout>heading_onlyoffice</layout>
+			</layouts>
+		</type>
+
+	</extension>
+</component>

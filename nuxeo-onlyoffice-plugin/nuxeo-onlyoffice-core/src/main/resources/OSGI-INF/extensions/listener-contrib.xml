@@ -1,0 +1,26 @@
+<component name="fr.edu.lyon.nuxeo.onlyoffice.listener.contrib">
+	<extension target="org.nuxeo.ecm.core.event.EventServiceComponent"
+		point="listener">
+
+		<listener name="onlyofficeBeforeEditionLocking" async="false"
+			postCommit="false" class="fr.edu.lyon.nuxeo.onlyoffice.listener.OnlyofficeLockListener" priority="50">
+			<event>onlyofficeBeforeEdition</event>
+		</listener>
+
+		<listener name="onlyofficeAfterEditionSaveDocument" async="false"
+            postCommit="false" class="fr.edu.lyon.nuxeo.onlyoffice.listener.OnlyofficeSaveDocumentListener" priority="50">
+			<event>onlyofficeAfterEdition</event>
+		</listener>
+
+		<listener name="onlyofficeAfterEditionUnLocking" async="false"
+            postCommit="false" class="fr.edu.lyon.nuxeo.onlyoffice.listener.OnlyofficeUnLockListener" priority="80">
+			<event>onlyofficeAfterEdition</event>
+		</listener>
+
+		<listener name="onlyofficeAfterEditionCreateDocument" async="false"
+            postCommit="false" class="fr.edu.lyon.nuxeo.onlyoffice.listener.OnlyofficeCreateDocumentListener" priority="50">
+			<event>onlyofficeAfterEdition</event>
+		</listener>
+
+	</extension>
+</component>

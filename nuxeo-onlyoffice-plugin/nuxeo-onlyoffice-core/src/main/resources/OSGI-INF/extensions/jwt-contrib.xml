@@ -1,0 +1,12 @@
+<component name="fr.edu.lyon.nuxeo.onlyoffice.jwt.contrib">
+
+	<extension target="fr.edu.lyon.jwt.service.PayloadPluginService"
+		point="plugin">
+
+		<payload id="onlyoffice" enabled="true"
+			class="fr.edu.lyon.nuxeo.jwt.service.OnlyOfficePayloadResolver">
+			<claim>payload.actions.userid</claim>
+			<claim>payload.key</claim>
+		</payload>
+	</extension>
+</component>

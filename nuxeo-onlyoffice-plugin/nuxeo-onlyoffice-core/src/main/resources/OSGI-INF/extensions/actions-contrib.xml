@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component name="fr.edu.lyon.nuxeo.onlyoffice.actions.contrib">
+	<require>org.nuxeo.ecm.platform.preview.actions</require>
+	<extension target="org.nuxeo.ecm.platform.actions.ActionService"
+		point="actions">
+
+		<action id="onlyofficeEdit" link="#{onlyOfficeActions.editLink}"
+			label="onlyoffice.edit" type="bare_link" icon="/icons/edit-32.png">
+			<category>DRIVE_EDIT</category>
+			<filter id="use-onlyoffice">
+				<rule grant="true">
+					<permission>Write</permission>
+					<condition>#{onlyOfficeActions.managed}</condition>
+				</rule>
+			</filter>
+			<filter-id>onlyoffice-can-edit</filter-id>
+			<filter-id>onlyoffice-confirmation-not-needed</filter-id>
+			<filter-id>onlyofficeAvailableForuser</filter-id>
+		</action>
+
+		<action id="onlyofficeEditWithConfirm" link="#{onlyOfficeActions.editLink}"
+			label="onlyoffice.edit" type="bare_link" icon="/icons/edit-32.png">
+			<category>DRIVE_EDIT</category>
+			<filter id="use-onlyoffice">
+				<rule grant="true">
+					<permission>Write</permission>
+					<condition>#{onlyOfficeActions.managed}</condition>
+				</rule>
+			</filter>
+			<filter-id>onlyoffice-can-edit</filter-id>
+			<filter-id>onlyoffice-confirmation-needed</filter-id>
+			<filter-id>onlyofficeAvailableForuser</filter-id>
+			<properties>
+				<property name="confirm">return confirm('Le document sera converti dans un format plus récent (disponibilité du document original dans l’historique)')</property>
+			</properties>
+		</action>
+
+
+		<action id="onlyofficeCoEdit" link="#{onlyOfficeActions.coEditLink}"
+			label="onlyoffice.coedit" type="bare_link" icon="/icons/edit_user-32.png">
+			<category>DRIVE_EDIT</category>
+			<filter id="use-onlyoffice">
+				<rule grant="true">
+					<permission>Write</permission>
+					<condition>#{onlyOfficeActions.managed}</condition>
+				</rule>
+			</filter>
+			<filter-id>onlyoffice-can-edit</filter-id>
+			<filter-id>onlyoffice-confirmation-not-needed</filter-id>
+			<filter-id>onlyofficeAvailableForuser</filter-id>
+		</action>
+
+		<action id="onlyofficeCoEditWithConfirm" link="#{onlyOfficeActions.coEditLink}"
+			label="onlyoffice.coedit" type="bare_link" icon="/icons/edit_user-32.png">
+			<category>DRIVE_EDIT</category>
+			<filter id="use-onlyoffice">
+				<rule grant="true">
+					<permission>Write</permission>
+					<condition>#{onlyOfficeActions.managed}</condition>
+				</rule>
+			</filter>
+			<filter-id>onlyoffice-can-edit</filter-id>
+			<filter-id>onlyoffice-confirmation-needed</filter-id>
+			<filter-id>onlyofficeAvailableForuser</filter-id>
+			<properties>
+				<property name="confirm">return confirm('Le document sera converti dans un format plus récent (disponibilité du document original dans l’historique)')</property>
+			</properties>
+		</action>
+
+		<action id="showFancyBoxPreview" order="50" type="fancybox"
+			label="label.document.preview" icon="/icons/contextual_menu/preview.png">
+			<category>DOCUMENT_UPPER_ACTION</category>
+			<filter-id>view_preview</filter-id>
+			<filter-id>not_folder</filter-id>
+			<filter-id>not_anonymous</filter-id>
+			<filter-id>onlyoffice-can-edit</filter-id>
+			<properties>
+				<property name="iframe">#{onlyOfficeActions.previewLink}</property>
+				<property name="ajaxSupport">true</property>
+			</properties>
+		</action>
+
+		<action id="CREATE_DOCUMENT_ONLYOFFICE" link="redirect_onlyoffice"
+			order="0" label="command.create">
+			<category>CREATE_DOCUMENT_FORM_ONLYOFFICE</category>
+		</action>
+
+		<action id="CANCEL_DOCUMENT_CREATION_ONLYOFFICE" link="#{navigationContext.goBack()}"
+			order="50" label="command.cancel" immediate="true">
+			<category>CREATE_DOCUMENT_FORM_ONLYOFFICE</category>
+			<properties>
+				<property name="ajaxSupport">true</property>
+			</properties>
+		</action>
+
+	</extension>
+
+	<extension target="org.nuxeo.ecm.platform.actions.ActionService"
+		point="filters">
+
+		<filter id="onlyoffice-can-edit">
+			<rule grant="true">
+				<type>File</type>
+			</rule>
+		</filter>
+
+		<filter id="onlyoffice-confirmation-not-needed">
+			<rule grant="false">
+				<condition>#{onlyOfficeActions.needConfirmation()}</condition>
+			</rule>
+		</filter>
+
+		<filter id="onlyoffice-confirmation-needed">
+			<rule grant="true">
+				<condition>#{onlyOfficeActions.needConfirmation()}</condition>
+			</rule>
+		</filter>
+
+		<filter id="onlyofficeAvailableForuser">
+			<rule grant="true">
+				<condition>#{onlyOfficeActions.availableForUser}</condition>
+			</rule>
+		</filter>
+	</extension>
+</component>

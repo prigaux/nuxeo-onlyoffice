@@ -1,0 +1,20 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>nuxeo-bundle</artifactId>
+		<groupId>fr.edu.lyon.nuxeo</groupId>
+		<version>4.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>nuxeo-onlyoffice-plugin</artifactId>
+	<name>Environnement onlyoffice</name>
+
+	<modules>
+		<module>nuxeo-onlyoffice-api</module>
+		<module>nuxeo-onlyoffice-core</module>
+	</modules>
+
+	<packaging>pom</packaging>
+	<groupId>fr.edu.lyon.nuxeo.onlyoffice</groupId>
+	<description>Librairies et plugins nécessaires à l'intégration OnlyOffice</description>
+</project>

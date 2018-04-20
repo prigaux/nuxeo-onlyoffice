@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component name="fr.edu.lyon.nuxeo.onlyoffice.types.contrib"
+	version="1.0.0">
+
+	<extension target="org.nuxeo.ecm.core.schema.TypeService"
+		point="doctype">
+
+		<doctype name="DOCX" extends="Document">
+			<schema name="dublincore"/>
+			<schema name="common"/>
+		</doctype>
+
+		<doctype name="XLSX" extends="Document">
+			<schema name="dublincore"/>
+			<schema name="common"/>
+		</doctype>
+
+		<doctype name="PPTX" extends="Document">
+			<schema name="dublincore"/>
+			<schema name="common"/>
+		</doctype>
+
+	</extension>
+</component>

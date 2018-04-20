@@ -1,0 +1,94 @@
+body {
+	background: url("error/page_background.gif") repeat scroll 0 0
+		transparent;
+	color: #999;
+	font: normal 100%/1.5 "Lucida Grande", Arial, Verdana, sans-serif;
+	margin: 0;
+	text-align: center
+}
+
+.container {
+	margin: 2em auto;
+	text-align: center;
+	width: 70%
+}
+
+h1 {
+	color: #000;
+	font-size: 150%;
+	margin: 3.5em 0 .5em 0
+}
+
+h2 {
+	color: #b20000;
+	font-size: 110%;
+	margin: 1em
+}
+
+h1, h2 {
+	font-weight: bold
+}
+
+p {
+	max-width: 600px;
+	margin: .4em auto
+}
+
+a.block {
+	background: url("error/refresh.png") no-repeat scroll center 10px #fff;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	color: #00729c;
+	display: inline-block;
+	font-weight: bold;
+	margin: .4em;
+	padding: 3em .5em .8em;
+	text-align: center;
+	text-decoration: none;
+	vertical-align: top;
+	width: 7em
+}
+
+a.block:hover {
+	background-color: #e9f1f4;
+	border-color: #e9f1f4;
+	color: #000
+}
+
+a.block.back {
+	background-image: url("error/back.png")
+}
+
+a.block.stack {
+	background-image: url("error/show.png")
+}
+
+a.block.dump {
+	background-image: url("error/view.png")
+}
+
+.block img {
+	display: block;
+	margin: 0 auto
+}
+
+.links {
+	margin: 2em 0 0 0
+}
+
+.links span {
+	display: inline-block;
+	font-size: 85%
+}
+
+.errorDetail {
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	height: 40%;
+	margin: 1em auto;
+	overflow: auto;
+	padding: 0.5em;
+	text-align: left;
+	width: 100%
+}
