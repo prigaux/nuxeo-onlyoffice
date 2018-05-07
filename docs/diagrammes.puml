@@ -1,0 +1,36 @@
+@startuml diagramme-edit
+
+Navigateur->Nuxeo: 
+Nuxeo->Navigateur: page html avec boutons
+
+...
+note over Navigateur: l'utilisateur clique sur "Edition en ligne"
+
+Navigateur->Nuxeo: .../site/onlyoffice/edit/42
+Nuxeo -> Navigateur: html avec OnlyOffice config :\n  url: ".../site/onlyoffice/download/42?sessionToken=xyz"\n  callbackUrl: ".../site/onlyoffice/callbackEdit/42"
+    
+Navigateur -> OnlyOffice
+OnlyOffice -> Nuxeo : .../site/onlyoffice/download/42?sessionToken=xyz
+Nuxeo -> OnlyOffice : contenu initial
+OnlyOffice -> Navigateur : affichage du document
+
+...
+note over Navigateur : l'utilisateur modifie le document
+Navigateur <-> OnlyOffice :
+...
+
+note over Navigateur : demande de sauvegarder le document
+Navigateur -> OnlyOffice :
+OnlyOffice -> Navigateur : redirige vers nuxeo
+Navigateur -> Nuxeo :
+Nuxeo -> Navigateur : interface nuxeo
+
+...
+note over OnlyOffice : quelques secondes plus tard
+OnlyOffice -> Nuxeo : .../site/onlyoffice/callbackEdit/42 avec\n  status: 2\n  url: ".../abc"
+Nuxeo -> OnlyOffice
+Nuxeo -> OnlyOffice : .../abc
+OnlyOffice -> Nuxeo : contenu modifié
+note over Nuxeo : sauvegarde du document
+
+@enduml
