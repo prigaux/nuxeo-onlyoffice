@@ -96,10 +96,11 @@ public class OnlyOfficeCreateDocument extends AbstractOnlyOfficeDocument
 	}
 
 	@Override
-	public String getCallbackUrl()
+	public String getCallbackUrl(String sessionToken)
 	{
 		String docId=FileUtility.getEncoded(parent.getId(),filename,filetype);
-		return new StringBuilder(context.getCallbackBaseUrl()).append(SITE_ONLYOFFICE_CALLBACK).append(docId).toString();
+		return new StringBuilder(context.getCallbackBaseUrl()).append(SITE_ONLYOFFICE_CALLBACK).append(docId).append("?sessionToken=")
+           .append(sessionToken).toString();
 	}
 
 	@Override

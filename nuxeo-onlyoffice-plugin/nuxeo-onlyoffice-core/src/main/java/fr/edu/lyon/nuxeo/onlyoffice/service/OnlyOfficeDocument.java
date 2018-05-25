@@ -74,7 +74,7 @@ public interface OnlyOfficeDocument
 	 * URL de tracking
 	 * @return
 	 */
-	String getCallbackUrl();
+	String getCallbackUrl(String sessionToken);
 
 	/**
 	 * Le mode édition est-il requis ?

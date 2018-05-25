@@ -124,9 +124,10 @@ public class OnlyOfficeEditDocument extends AbstractOnlyOfficeDocument
 	}
 
 	@Override
-	public String getCallbackUrl()
+	public String getCallbackUrl(String sessionToken)
 	{
-		return new StringBuilder(context.getCallbackBaseUrl()).append(isCoEditionEnabled() ? SITE_ONLYOFFICE_CALLBACK_COEDITING:SITE_ONLYOFFICE_CALLBACK).append(doc.getId()).toString();
+		return new StringBuilder(context.getCallbackBaseUrl()).append(isCoEditionEnabled() ? SITE_ONLYOFFICE_CALLBACK_COEDITING:SITE_ONLYOFFICE_CALLBACK).append(doc.getId()).append("?sessionToken=")
+        .append(sessionToken).toString();
 	}
 
 	@Override

@@ -121,7 +121,7 @@ public class OnlyofficeConfig
 	private JSONObject getEditorConfig(OnlyOfficeDocument onlyOfficeDocument)
 	{
 		JSONObject editor = new JSONObject();
-		editor.accumulate(ONLYOFFICE_CALLBACK_URL_CONFIG, onlyOfficeDocument.getCallbackUrl());
+		editor.accumulate(ONLYOFFICE_CALLBACK_URL_CONFIG, onlyOfficeDocument.getCallbackUrl(getSessionToken(onlyOfficeDocument.getSessionPrincipal())));
 		editor.accumulate(ONLYOFFICE_LANG_CONFIG, "fr");
 		editor.accumulate(ONLYOFFICE_MODE_CONFIG, onlyOfficeDocument.isEditModeEnabled() ? "edit" : "view");
 
