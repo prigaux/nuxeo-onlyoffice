@@ -24,7 +24,7 @@ Créez un fichier `/var/lib/nuxeo/server/nxserver/config/onlyoffice-config.xml` 
     <onlyoffice>
       <url>https://onlyoffice.univ.fr/</url>
       <algorithm>onlyoffice</algorithm>
-      <prefix>test</prefix>
+      <prefix>onlyo</prefix>
     </onlyoffice>
   </extension>
 </component>

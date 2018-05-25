@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<component name="fr.esupportail.nuxeo.onlyoffice.jwt.auth">
+
+  <extension
+    target="org.nuxeo.ecm.platform.ui.web.auth.service.PluggableAuthenticationService"
+    point="authenticators">
+    <authenticationPlugin name="ONLYOFFICE_JWT_AUTH" enabled="true"
+      class="fr.edu.lyon.nuxeo.ui.web.auth.portal.JWTAuthenticator">
+      <loginModulePlugin>Trusting_LM</loginModulePlugin>
+      <parameters>
+        <parameter name="algorithm">onlyoffice</parameter>
+        <parameter name="prefix">onlyo</parameter>
+      </parameters>
+    </authenticationPlugin>
+  </extension>
+
+</component>

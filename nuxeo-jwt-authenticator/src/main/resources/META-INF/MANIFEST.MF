@@ -5,6 +5,6 @@ Bundle-ClassPath: .
 Bundle-Name: JWT Login Module extension
 Require-Bundle: org.nuxeo.ecm.platform.login
 Nuxeo-Component: OSGI-INF/extensions/framework-payload-service.xml,
- OSGI-INF/extensions/jwt-contrib.xml
+ OSGI-INF/extensions/jwt-contrib.xml,OSGI-INF/extensions/onlyoffice-authentication-plugin.xml
 Bundle-SymbolicName: fr.edu.lyon.nuxeo.platform.login.jwt;singleton:=true
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

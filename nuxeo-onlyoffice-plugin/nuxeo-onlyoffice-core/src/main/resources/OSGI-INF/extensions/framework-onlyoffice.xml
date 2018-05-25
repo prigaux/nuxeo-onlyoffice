@@ -15,7 +15,7 @@
 				<onlyoffice gobackClass="fr.edu.lyon.onlyoffice.GoBackDefaultResolver">
 					<url>http://documentServer/</url>
 					<algorithm>onlyoffice</algorithm>
-					<prefix>pref</prefix>
+					<prefix>onlyo</prefix>
 				</onlyoffice>
 			</code>
 		</documentation>
