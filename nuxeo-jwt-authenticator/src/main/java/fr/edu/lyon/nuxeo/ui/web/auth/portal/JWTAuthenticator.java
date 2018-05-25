@@ -64,47 +64,25 @@ public class JWTAuthenticator implements NuxeoAuthenticationPlugin
 
 	public UserIdentificationInfo handleRetrieveIdentity(HttpServletRequest httpRequest, HttpServletResponse httpResponse)
 	{
-		String token = getJWTToken(httpRequest.getHeader(AUTHORIZATION_HEADER));
+        String token = getJWTToken(httpRequest.getHeader(AUTHORIZATION_HEADER));
+        String userId = token2userId(token);
+        if (userId == null) {
+            token = httpRequest.getParameter("sessionToken");
+            userId = token2userId(token);
+        }
+        return userId == null ? null : new UserIdentificationInfo(userId, userId);
+    }
 
-		if (token == null)
-		{
-			return null;
-		}
-
+    private String token2userId(String token) {
+        if (token == null) return null;
 		try
 		{
 			Map<String, Object> payload = getPayloadPluginService().getPayload(token, algorithmId);
 
-			String userId=null;
 			PayloadResolver payloadResolver=getPayloadPluginService().getPayloadResolver(payload);
-			if (payloadResolver==null)
-			{
-				String aiToken=httpRequest.getParameter("sessionToken");
-				if (aiToken!=null)
-				{
-					payload=getPayloadPluginService().getPayload(aiToken, algorithmId);
-					payloadResolver=getPayloadPluginService().getPayloadResolver(payload);
-
-					if (payloadResolver!=null)
-					{
-						userId=payloadResolver.getUserId(payload);
-					}
-				}else
-				{
-					return null;
-				}
-			}else
-			{
-				userId=payloadResolver.getUserId(payload);
-			}
-
-			if (userId==null)
-			{
-				return null;
-			}
-
-			return new UserIdentificationInfo(userId, userId);
-
+            if (payloadResolver==null) return null;
+            
+            return payloadResolver.getUserId(payload);
 		} catch (Exception e)
 		{
 			log.warn("Impossible de valider le token JWT", e);
