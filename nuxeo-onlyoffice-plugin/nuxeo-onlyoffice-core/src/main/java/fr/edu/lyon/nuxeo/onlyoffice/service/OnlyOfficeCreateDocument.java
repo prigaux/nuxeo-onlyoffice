@@ -61,7 +61,7 @@ public class OnlyOfficeCreateDocument extends AbstractOnlyOfficeDocument
 	public String getKey()
 	{
 		Principal principal = session.getPrincipal();
-		return new StringBuilder(principal.getName()).append(KEY_SEPARATOR).append(Calendar.getInstance().getTimeInMillis()).toString();
+		return new StringBuilder(principal.getName().replace('@', '.')).append(KEY_SEPARATOR).append(Calendar.getInstance().getTimeInMillis()).toString();
 	}
 
 	@Override
