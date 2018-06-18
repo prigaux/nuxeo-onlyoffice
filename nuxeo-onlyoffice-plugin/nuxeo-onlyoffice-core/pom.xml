@@ -68,11 +68,6 @@
 			<artifactId>nuxeo-onlyoffice-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>fr.edu.lyon.nuxeo.cleartrust</groupId>
-			<artifactId>cleartrust-core</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 	</dependencies>
 
 </project>

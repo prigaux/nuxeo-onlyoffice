@@ -23,8 +23,6 @@ import org.nuxeo.runtime.api.Framework;
 
 import fr.edu.lyon.nuxeo.onlyoffice.service.OnlyofficeConfig;
 import fr.edu.lyon.nuxeo.onlyoffice.service.OnlyofficeService;
-import fr.edu.lyon.nuxeo.securid.services.SecurIDUrlService;
-import fr.edu.lyon.nuxeo.ui.web.rest.services.SecuridSecurityException;
 import fr.edu.lyon.onlyoffice.api.FileUtility;
 
 @Path("/onlyoffice")
@@ -36,17 +34,6 @@ public class OnlyOfficeWebservice extends ModuleRoot
 	protected final Log			log	= LogFactory.getLog(OnlyOfficeWebservice.class);
 
 	private OnlyofficeService	onlyofficeService;
-	private SecurIDUrlService securIDUrlService;
-
-	private SecurIDUrlService getSecurIDUrlService()
-	{
-		if (securIDUrlService == null)
-		{
-			securIDUrlService = Framework.getService(SecurIDUrlService.class);
-		}
-
-		return securIDUrlService;
-	}
 
 	private OnlyofficeService getOnlyOfficeService()
 	{
@@ -69,13 +56,7 @@ public class OnlyOfficeWebservice extends ModuleRoot
 	}
 
 	private void checkSecurid(DocumentModel document)
-	{
-		SecurIDUrlService service=getSecurIDUrlService();
-
-		if (service.needSecuridLogon(request, document.getPathAsString()))
-		{
-			throw new SecuridSecurityException();
-		}
+	{        
 	}
 
 	/**
@@ -107,7 +88,7 @@ public class OnlyOfficeWebservice extends ModuleRoot
 
 	private Object getSecuridErrorView()
 	{
-		return getView("securid-error").arg("securidLogonUrl", getSecurIDUrlService().getLogon(request));
+		return null;
 	}
 
 	@Path("coedit/{docId}")
@@ -133,7 +114,7 @@ public class OnlyOfficeWebservice extends ModuleRoot
 			DocumentModel doc=getDocument(decodedParts[0]);
 			checkSecurid(doc);
 			return getTemplate(doc, true, false, creationMap);
-		}catch(SecuridSecurityException e)
+		}catch(Exception e)
 		{
 			return getSecuridErrorView();
 		}
@@ -148,7 +129,7 @@ public class OnlyOfficeWebservice extends ModuleRoot
 			DocumentModel doc=getDocument(docId);
 			checkSecurid(doc);
 			return getTemplate(doc, true, false,null);
-		}catch(SecuridSecurityException e)
+		}catch(Exception e)
 		{
 			return getSecuridErrorView();
 		}
@@ -164,7 +145,7 @@ public class OnlyOfficeWebservice extends ModuleRoot
 			DocumentModel doc=getDocument(docId);
 			checkSecurid(doc);
 			return getTemplate(doc, false, false,null);
-		}catch(SecuridSecurityException e)
+		}catch(Exception e)
 		{
 			return getSecuridErrorView();
 		}
@@ -184,7 +165,7 @@ public class OnlyOfficeWebservice extends ModuleRoot
 			DocumentModel doc=getDocument(docId);
 			checkSecurid(doc);
 			return getOnlyOfficeService().getBlob(SessionFactory.getSession(), doc);
-		}catch(SecuridSecurityException e)
+		}catch(Exception e)
 		{
 			return getSecuridErrorView();
 		}
