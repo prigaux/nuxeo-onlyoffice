@@ -1,5 +1,6 @@
 package fr.edu.lyon.nuxeo.onlyoffice.view;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import javax.faces.context.FacesContext;
@@ -11,13 +12,17 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.nuxeo.ecm.core.api.Blob;
+import org.nuxeo.ecm.core.api.Blobs;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.blobholder.BlobHolder;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
+import org.nuxeo.ecm.platform.filemanager.api.FileManager;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.platform.web.common.vh.VirtualHostHelper;
+import org.nuxeo.runtime.api.Framework;
 
+import fr.edu.lyon.nuxeo.onlyoffice.service.OnlyofficeService;
 import fr.edu.lyon.nuxeo.onlyoffice.util.OnlyOfficeUserHelper;
 import fr.edu.lyon.onlyoffice.api.FileUtility;
 
@@ -137,9 +142,23 @@ public class OnlyOfficeActionsBean implements Serializable
 		DocumentModel currentDocument = navigationContext.getChangeableDocument();
 
 		String title=currentDocument.getTitle();
+        String filetype = currentDocument.getType().toLowerCase();
+        String filename = title + "." + filetype;
 
-		String docId=FileUtility.getEncoded(parentDocument.getId(), title, currentDocument.getType().toLowerCase());
-		return VirtualHostHelper.getBaseURL(getRequest()) + "site/onlyoffice/create/" + docId;
+        try { 
+            Blob blob = Blobs.createBlob(getClass().getResourceAsStream("/templates/empty." + filetype));
+            blob.setFilename(filename);
+            blob.setMimeType(FileUtility.getOnlyofficeMimeType(filename));
+
+            DocumentModel documentModel=documentManager.createDocumentModel(parentDocument.getPathAsString(), filename, "File");
+            documentModel.setPropertyValue("dc:title", title);
+            documentModel.getAdapter(BlobHolder.class).setBlob(blob);
+            DocumentModel createdDoc = documentManager.createDocument(documentModel);
+
+            return VirtualHostHelper.getBaseURL(getRequest()) + "site/onlyoffice/coedit/" + createdDoc.getId();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 	}
 
 }
