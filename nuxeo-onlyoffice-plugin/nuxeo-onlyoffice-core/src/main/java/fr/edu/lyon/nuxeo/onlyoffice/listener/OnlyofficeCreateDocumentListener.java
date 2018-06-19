@@ -97,6 +97,7 @@ public class OnlyofficeCreateDocumentListener implements EventListener
 					blob.setMimeType(FileUtility.getOnlyofficeMimeType(filename));
 
 					DocumentModel documentModel=session.createDocumentModel(parent.getPathAsString(), filename, "File");
+                    documentModel.setPropertyValue("dc:title", filename);
 					BlobHolder bh=documentModel.getAdapter(BlobHolder.class);
 					bh.setBlob(blob);
 
