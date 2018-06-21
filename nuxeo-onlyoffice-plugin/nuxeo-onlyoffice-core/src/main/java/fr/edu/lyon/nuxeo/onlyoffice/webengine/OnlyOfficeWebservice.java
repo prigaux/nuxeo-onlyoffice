@@ -15,6 +15,7 @@ import javax.ws.rs.Produces;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.DocumentSecurityException;
 import org.nuxeo.ecm.core.api.IdRef;
 import org.nuxeo.ecm.webengine.jaxrs.session.SessionFactory;
 import org.nuxeo.ecm.webengine.model.WebObject;
@@ -95,10 +96,13 @@ public class OnlyOfficeWebservice extends ModuleRoot
 	@GET
 	public Object coEditDocument(@PathParam("docId") final String docId)
 	{
-		DocumentModel document=getDocument(docId);
-
-		return getTemplate(document, true, true,null);
-	}
+        try {
+            DocumentModel document=getDocument(docId);
+            return getTemplate(document, true, true,null);
+        } catch (DocumentSecurityException e) {
+            return getView("DocumentSecurityException");
+        }
+}
 
 	@Path("create/{docId}")
 	@GET
