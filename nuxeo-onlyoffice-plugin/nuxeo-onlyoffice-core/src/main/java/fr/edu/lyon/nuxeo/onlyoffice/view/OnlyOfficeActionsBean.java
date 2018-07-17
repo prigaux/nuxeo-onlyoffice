@@ -44,12 +44,16 @@ public class OnlyOfficeActionsBean implements Serializable
 
 	private String getLink(Mode mode)
 	{
-		DocumentModel currentDocument = navigationContext.getCurrentDocument();
+		return getLink(mode, navigationContext.getCurrentDocument());
+	}
+
+	private String getLink(Mode mode, DocumentModel document)
+	{
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
 
 		return new StringBuilder(VirtualHostHelper.getBaseURL(request)).append("site/onlyoffice/").append(isEditable() ? mode.toString() : Mode.VIEW.toString()).append("/")
-				.append(currentDocument.getId()).toString();
+				.append(document.getId()).toString();
 	}
 
 	public String getEditLink()
@@ -60,6 +64,11 @@ public class OnlyOfficeActionsBean implements Serializable
 	public String getCoEditLink()
 	{
 		return getLink(Mode.COEDIT);
+	}
+
+	public String getCoEditLink(DocumentModel document)
+	{
+		return getLink(Mode.COEDIT, document);
 	}
 
 	public String getPreviewLink()
