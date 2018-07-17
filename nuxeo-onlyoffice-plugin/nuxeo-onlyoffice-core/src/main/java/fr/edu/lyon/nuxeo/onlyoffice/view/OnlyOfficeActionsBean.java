@@ -17,12 +17,9 @@ import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.blobholder.BlobHolder;
 import org.nuxeo.ecm.core.api.security.SecurityConstants;
-import org.nuxeo.ecm.platform.filemanager.api.FileManager;
 import org.nuxeo.ecm.platform.ui.web.api.NavigationContext;
 import org.nuxeo.ecm.platform.web.common.vh.VirtualHostHelper;
-import org.nuxeo.runtime.api.Framework;
 
-import fr.edu.lyon.nuxeo.onlyoffice.service.OnlyofficeService;
 import fr.edu.lyon.nuxeo.onlyoffice.util.OnlyOfficeUserHelper;
 import fr.edu.lyon.onlyoffice.api.FileUtility;
 
