@@ -4,6 +4,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>${title}</title>
         <link rel="stylesheet" href="${skinPath}/css/editor.css" type="text/css" media="screen" charset="utf-8"/>
+        <link rel="icon" href="${skinPath}/favicon.ico" type="image/x-icon" />
 
         <script type="text/javascript" src="${documentServer}web-apps/apps/api/documents/api.js"></script>
 
