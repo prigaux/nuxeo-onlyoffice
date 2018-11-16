@@ -141,6 +141,7 @@ public class OnlyofficeConfig
 		{
 			JSONObject gobackObj = new JSONObject();
 			gobackObj.accumulate(ONLYOFFICE_URL_CONFIG, goback);
+			gobackObj.accumulate("blank", false);
 			gobackObj.accumulate("text", "Aller au document");
 			customization.accumulate(ONLYOFFICE_GOBACK_CONFIG, gobackObj);
 		}
