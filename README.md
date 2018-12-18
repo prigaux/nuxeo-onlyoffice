@@ -1,12 +1,12 @@
 ## Installation & configuration
 
-### Génération des jar
+### Generate jars
 
 ```sh
 mvn package -DskipTests
 ```
 
-### Installation des jar
+### Install jars
 
 ```sh
 cp `find -name "*.jar"` /var/lib/nuxeo/server/nxserver/bundles/
@@ -15,7 +15,7 @@ cp `find ~/.m2 -name "java-jwt-3.2.0.jar"` /var/lib/nuxeo/server/nxserver/bundle
 
 ### Configuration
 
-Créez un fichier `/var/lib/nuxeo/server/nxserver/config/onlyoffice-config.xml` avec
+Create file `/var/lib/nuxeo/server/nxserver/config/onlyoffice-config.xml` with
 
 ```xml
 <?xml version="1.0"?>
@@ -30,7 +30,7 @@ Créez un fichier `/var/lib/nuxeo/server/nxserver/config/onlyoffice-config.xml` 
 </component>
 ```
 
-Et un fichier `/var/lib/nuxeo/server/nxserver/config/onlyoffice-auth-config.xml` avec
+and create file `/var/lib/nuxeo/server/nxserver/config/onlyoffice-auth-config.xml` with
 
 ```xml
 <component name="onlyoffice.auth.config">
@@ -49,9 +49,9 @@ Et un fichier `/var/lib/nuxeo/server/nxserver/config/onlyoffice-auth-config.xml`
 </component>
 ```
 
-L'algorithme et le préfixe sont utilisés pour générer le JWT (passé en paramètre `sessionToken`)
+The algorithm and the prefix are used to generate the JWT (passed as parameter `sessionToken`)
 
-Créez un fichier `/var/lib/nuxeo/server/nxserver/config/onlyoffice-jwt-config.xml` avec
+Create file `/var/lib/nuxeo/server/nxserver/config/onlyoffice-jwt-config.xml` with
 
 ```xml
 <?xml version="1.0"?>
@@ -62,15 +62,15 @@ Créez un fichier `/var/lib/nuxeo/server/nxserver/config/onlyoffice-jwt-config.x
 </component>
 ```
 
-### Prise en compte
+### Take changes into account
 
-Vous devez ensuite redémarrer nuxeo
+You have to restart nuxeo
 
-## Diagramme de séquence
+## Sequence diagram
 
-Diagrammes générées avec : `plantuml diagrammes.puml`
+Diagrams generated with : `plantuml diagrammes.puml`
 
-### Edition d'un document existant dans Nuxeo
+### Modify a document already existing in Nuxeo
 
 ![](docs/diagramme-edit.png)
 
