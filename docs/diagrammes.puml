@@ -1,36 +1,36 @@
 @startuml diagramme-edit
 
-Navigateur->Nuxeo: 
-Nuxeo->Navigateur: page html avec boutons
+Browser->Nuxeo: 
+Nuxeo->Browser: html page with buttons
 
 ...
-note over Navigateur: l'utilisateur clique sur "Edition en ligne"
+note over Browser: user clicks on "Live edit"
 
-Navigateur->Nuxeo: .../site/onlyoffice/edit/42
-Nuxeo -> Navigateur: html avec OnlyOffice config :\n  url: ".../site/onlyoffice/download/42?sessionToken=xyz"\n  callbackUrl: ".../site/onlyoffice/callbackEdit/42?sessionToken=xyz"
+Browser->Nuxeo: .../site/onlyoffice/edit/42
+Nuxeo -> Browser: html with OnlyOffice config :\n  url: ".../site/onlyoffice/download/42?sessionToken=xyz"\n  callbackUrl: ".../site/onlyoffice/callbackEdit/42?sessionToken=xyz"
     
-Navigateur -> OnlyOffice
+Browser -> OnlyOffice
 OnlyOffice -> Nuxeo : .../site/onlyoffice/download/42?sessionToken=xyz
-Nuxeo -> OnlyOffice : contenu initial
-OnlyOffice -> Navigateur : affichage du document
+Nuxeo -> OnlyOffice : initial content
+OnlyOffice -> Browser : displays document
 
 ...
-note over Navigateur : l'utilisateur modifie le document
-Navigateur <-> OnlyOffice :
+note over Browser : user modifies the document
+Browser <-> OnlyOffice :
 ...
 
-note over Navigateur : demande de sauvegarder le document
-Navigateur -> OnlyOffice :
-OnlyOffice -> Navigateur : redirige vers nuxeo
-Navigateur -> Nuxeo :
-Nuxeo -> Navigateur : interface nuxeo
+note over Browser : user finishes editing
+Browser -> OnlyOffice :
+OnlyOffice -> Browser : redirect to nuxeo
+Browser -> Nuxeo :
+Nuxeo -> Browser : nuxeo user interface
 
 ...
-note over OnlyOffice : quelques secondes plus tard
-OnlyOffice -> Nuxeo : .../site/onlyoffice/callbackEdit/42?sessionToken=xyz avec\n  status: 2\n  url: ".../abc"
+note over OnlyOffice : a few seconds later
+OnlyOffice -> Nuxeo : .../site/onlyoffice/callbackEdit/42?sessionToken=xyz with\n  status: 2\n  url: ".../abc"
 Nuxeo -> OnlyOffice
 Nuxeo -> OnlyOffice : .../abc
-OnlyOffice -> Nuxeo : contenu modifié
-note over Nuxeo : sauvegarde du document
+OnlyOffice -> Nuxeo : modified content
+note over Nuxeo : saves the document
 
 @enduml
