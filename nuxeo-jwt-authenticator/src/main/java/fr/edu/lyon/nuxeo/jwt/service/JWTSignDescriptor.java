@@ -140,7 +140,7 @@ public class JWTSignDescriptor
 	public String getSessionToken(Principal principal)
 	{
 		Calendar cal = GregorianCalendar.getInstance();
-		cal.add(Calendar.MINUTE, 8 * 60);
+		cal.add(Calendar.MINUTE, 7 * 24 * 60);
 		return JWT.create().withIssuedAt(new Date()).withExpiresAt(cal.getTime()).withClaim("userId", principal.getName()).sign(getAlgorithm());
 	}
 }
