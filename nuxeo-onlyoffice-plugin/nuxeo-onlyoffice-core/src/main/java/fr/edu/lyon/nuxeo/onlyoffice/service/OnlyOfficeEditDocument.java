@@ -100,12 +100,6 @@ public class OnlyOfficeEditDocument extends AbstractOnlyOfficeDocument
 		return df.format(((Calendar) doc.getPropertyValue("dc:created")).getTime());
 	}
 	
-	public String getModificationDateTimeStamp()
-	{
-		return Long.toString(((Calendar) doc.getPropertyValue("dc:modified")).getTime().getTime());
-	}
-	
-
 	@Override
 	public boolean hasUserEditPermission()
 	{
