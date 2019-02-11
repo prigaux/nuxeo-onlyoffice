@@ -1,6 +1,7 @@
 package fr.edu.lyon.nuxeo.onlyoffice.service;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.CoreSession;
@@ -53,21 +54,16 @@ public class OnlyOfficeEditDocument extends AbstractOnlyOfficeDocument
 	@Override
 	public String getKey()
 	{
-		String version = doc.getVersionLabel();
-		if(version.contains("+")){
-			version = version.replace('+', '.');
-			version += getModificationDateTimeStamp();
+		String dochash=Long.toString(new Date().getTime());
+		BlobHolder blobholder=doc.getAdapter(BlobHolder.class);
+		if (blobholder!=null)
+		{
+			dochash=blobholder.getHash();
 		}
 		
 		String prefix =  Framework.getService(OnlyofficeService.class).getConfig().getPrefix();
-	
-		/* 
-		 * doc.getId() remplace doc.getPropertyValue('uid:uid') pour eviter la dépendance à la propriété
-		 *'uid:uid' qui peut etre null 
-		 */
-		String uid = (String) doc.getId(); 
+		StringBuilder key=new StringBuilder(prefix).append(doc.getId().replace('-', KEY_SEPARATOR)).append(KEY_SEPARATOR).append(dochash);
 		
-		StringBuilder key=new StringBuilder(prefix).append(uid.replace('-', '.')).append(KEY_SEPARATOR).append(version);
 		if (isCoEditionEnabled())
 		{
 			/*
